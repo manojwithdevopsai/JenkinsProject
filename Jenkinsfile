@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_ID = 'your-project-id'
-        CLUSTER_NAME = 'my-cluster'
-        LOCATION = 'us-central1-a'
-        CREDENTIALS_ID = 'your-credentials-id'
+        PROJECT_ID = 'seventh-reef-463513-t3'
+        CLUSTER_NAME = 'demo'
+        LOCATION = 'us-west2-a'
+        CREDENTIALS_ID = 'gcp-service-account'
     }
 
     stages {
