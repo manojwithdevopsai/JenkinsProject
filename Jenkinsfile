@@ -21,6 +21,17 @@ pipeline {
             }
         }
 
+        stage('Create Dockerfile') {
+    steps {
+        writeFile file: 'Dockerfile', text: '''
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
+'''
+    }
+}
+
         stage('Docker Build') {
             steps {
                 sh 'docker build -t gcr.io/$PROJECT_ID/petclinic:latest .'
