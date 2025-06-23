@@ -50,12 +50,9 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
         stage('Deploy to Kubernetes') {
             steps {
-                kubernetesDeploy(
-                    configs: 'k8s/deployment.yaml',
-                    kubeconfigId: CREDENTIALS_ID,
-                    enableConfigSubstitution: true,
-                    namespace: 'default'
-                )
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'gcp-service-account', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+    // some block
+}
             }
         }
     }
