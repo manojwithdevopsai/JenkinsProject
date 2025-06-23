@@ -48,12 +48,14 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
         }
 
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'gcp-service-account', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-    // some block
-}
+        stage ('K8S Deploy') {
+          steps {
+            script {
+                withKubeConfig([credentialsId: 'K8S', serverUrl: '']) {
+                sh ('kubectl apply -f  jenkins-aks-deploy-from-acr.yaml')
+                }
             }
         }
+     }
     }
 }
