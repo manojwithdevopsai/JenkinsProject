@@ -2,10 +2,9 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_ID = 'seventh-reef-463513-t3'
-        CLUSTER_NAME = 'demo'
-        LOCATION = 'us-west2-a'
-        CREDENTIALS_ID = 'gcp-service-account'
+        registryUrl = 'docker.io'
+        registryCredential = 'docker-login'  // ID configured in Jenkins Credentials
+        dockerImageName = manojsavukar/sonali'
     }
 
     stages {
