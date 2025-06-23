@@ -32,20 +32,21 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
     }
 }
 
-        stage('Docker Build') {
+                stage('Docker Build') {
             steps {
-                sh 'docker build -t gcr.io/$PROJECT_ID/petclinic:latest .'
+                sh 'docker build -t sonalikurade/devops:latest .'
             }
         }
 
-        stage('Push to Container Registry') {
+        stage('Push to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: CREDENTIALS_ID, variable: 'TOKEN')]) {
-                    sh 'docker login -u _json_key --password-stdin https://gcr.io < $TOKEN'
-                    sh 'docker push gcr.io/$PROJECT_ID/petclinic:latest'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh 'docker push sonalikurade/devops:latest'
                 }
             }
         }
+
 
         stage('Deploy to Kubernetes') {
             steps {
