@@ -52,7 +52,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
           steps {
             script {
                 withKubeConfig([credentialsId: 'K8S', serverUrl: '']) {
-                sh ('kubectl apply -f  k8s/deployment.yaml')
+                sh ('kubectl apply -f  . deployment.yaml')
                 }
             }
         }
