@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven3'
+    }
+    
     environment {
         registryUrl = 'docker.io'
         registryCredential = 'docker-login'  // ID configured in Jenkins Credentials
@@ -16,7 +20,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh './mvnw clean package'
+                sh 'mvn clean install'
             }
         }
 
