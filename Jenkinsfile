@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven3'
-    }
-    
     environment {
         registryUrl = 'docker.io'
         registryCredential = 'docker-login'  // ID configured in Jenkins Credentials
