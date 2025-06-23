@@ -4,13 +4,13 @@ pipeline {
     environment {
         registryUrl = 'docker.io'
         registryCredential = 'docker-login'  // ID configured in Jenkins Credentials
-        dockerImageName = manojsavukar/sonali'
+        dockerImageName = 'manojsavukar/sonali'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
+                git branch: 'main', url: 'https://github.com/manojwithdevopsai/JenkinsProject.git'
             }
         }
 
@@ -33,15 +33,15 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
                 stage('Docker Build') {
             steps {
-                sh 'docker build -t sonalikurade/devops:latest .'
+                sh 'docker build -t manojsavukar/sonali:latest .'
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker-login', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker push sonalikurade/devops:latest'
+                    sh 'docker push manojsavukar/sonali:latest'
                 }
             }
         }
